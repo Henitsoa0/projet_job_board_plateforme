@@ -22,7 +22,7 @@ Plateforme de recrutement full-stack connectant candidats et recruteurs.
 # Backend
 cd backend
 npm install
-npm run dev
+node server.js
 
 # Frontend
 cd frontend

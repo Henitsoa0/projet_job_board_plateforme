@@ -47,7 +47,7 @@ const Jobs = () => {
       const response = await api.get('/jobs', { params });
       setJobs(response.data.jobs);
       setPagination({
-        currentPage: response.data.currentPage,
+        currentPage: parseInt(response.data.currentPage, 10),
         totalPages: response.data.totalPages,
         total: response.data.total
       });
@@ -83,7 +83,7 @@ const Jobs = () => {
   };
 
   const handlePageChange = (newPage) => {
-    setPagination({ ...pagination, currentPage: newPage });
+    setPagination(prev => ({ ...prev, currentPage: newPage }));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -267,10 +267,10 @@ const Jobs = () => {
                             <button
                               key={pageNum}
                               onClick={() => handlePageChange(pageNum)}
-                              className={`w-10 h-10 rounded-lg transition-colors ${
+                              className={`w-10 h-10 rounded-lg transition-colors font-semibold ${
                                 pagination.currentPage === pageNum
-                                  ? 'bg-blue-600 text-white'
-                                  : 'hover:bg-gray-100'
+                                  ? 'bg-blue-600 text-white border-2 border-blue-700 shadow-md'
+                                  : 'hover:bg-gray-100 border border-gray-200'
                               }`}
                             >
                               {pageNum}

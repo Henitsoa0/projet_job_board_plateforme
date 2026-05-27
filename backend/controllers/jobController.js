@@ -24,7 +24,9 @@ const createJob = async (req, res) => {
 // @access  Public
 const getJobs = async (req, res) => {
     try {
-        const { search, location, type, experience, page = 1, limit = 10 } = req.query;
+        const { search, location, type, experience } = req.query;
+        const page = parseInt(req.query.page, 10) || 1;
+        const limit = parseInt(req.query.limit, 10) || 10;
         
         let query = { status: 'active' };
 
@@ -52,7 +54,7 @@ const getJobs = async (req, res) => {
         const jobs = await Job.find(query)
             .populate('recruiter', 'name company')
             .sort('-createdAt')
-            .limit(limit * 1)
+            .limit(limit)
             .skip((page - 1) * limit);
 
         const total = await Job.countDocuments(query);
